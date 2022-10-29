@@ -1,5 +1,6 @@
 const fs = require("fs");
 const http = require("http");
+const PORT = process.env.PORT || 8000;
 
 // Reading our json file
 const data = JSON.parse(fs.readFileSync(`${__dirname}/data.json`));
@@ -11,7 +12,7 @@ const server = http.createServer((req, res) => {
       "Content-type": "application/json",
     });
 
-    res.end(data);
+    res.end(JSON.stringify(data));
   } else {
     res.writeHead(404, {
       "Content-type": "text/html",
@@ -22,6 +23,4 @@ const server = http.createServer((req, res) => {
 
 // Listening on a port
 const port = 8000;
-server.listen(port, "localhost", () => {
-  console.log(`Listening to a request on port ${port}...`);
-});
+server.listen(PORT, "localhost");
